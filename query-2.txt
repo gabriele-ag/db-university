@@ -102,4 +102,12 @@ WHERE departments.name = "Dipartimento di Matematica"
 superare ciascuno dei suoi esami
 
 
-
+SELECT students.name, students.surname, exams.id AS id_exam, COUNT(*) AS tentativi 
+FROM `students`
+INNER JOIN `exam_student`
+ON students.id = exam_student.student_id
+INNER JOIN `exams`
+ON exam_student.exam_id = exams.id
+WHERE `vote` >= 18
+GROUP BY students.id, exams.id
+ORDER BY students.name ASC
